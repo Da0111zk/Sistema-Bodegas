@@ -10,17 +10,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/kardex")
 public class KardexController {
 
-    @GetMapping("/")
-    public String home() {
-        return "ms-kardex funcionando";
-    }
-
     @Autowired
     private KardexService service;
+
+    @GetMapping
+    public ResponseEntity<List<MovimientoResponseDTO>> listarMovimientos() {
+        return ResponseEntity.ok(service.listarMovimientos());
+    }
 
     @PostMapping("/movimiento")
     public ResponseEntity<MovimientoResponseDTO> registrarMovimiento(@Valid @RequestBody MovimientoRequestDTO dto) {

@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Productos")
 public class Producto {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productoId;
@@ -36,12 +38,14 @@ public class Producto {
     @NotNull(message = "El precio es obligatorio")
     @Positive(message = "El precio debe ser mayor que 0")
     @Column(nullable = false, precision = 10, scale = 2)
-    private int precio;
+    private BigDecimal precio;
 
     @NotBlank(message = "El estado no puede estar vacío")
     @Column(nullable = false, length = 20)
     private String estado;
 
-    
+    @NotNull(message = "El ID de la categoría es obligatorio")
+    @Column(name = "categoria_id", nullable = false)
+    private Long categoriaId; 
 
 }

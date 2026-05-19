@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.List;
 import java.time.LocalDateTime;
 
 @Slf4j
@@ -100,6 +100,25 @@ public class KardexService {
         dto.setCantidad(stock.getCantidad());
         return dto;
     }
+    public List<MovimientoResponseDTO> listarMovimientos() {
+     return movimientoRepository.findAll()
+            .stream()
+            .map(movimiento -> {
+                MovimientoResponseDTO dto = new MovimientoResponseDTO();
+                dto.setId(movimiento.getId());
+                dto.setProductoId(movimiento.getProductoId());
+                dto.setBodegaId(movimiento.getBodegaId());
+                dto.setTipoMovimiento(movimiento.getTipoMovimiento());
+                dto.setCantidad(movimiento.getCantidad());
+                dto.setSigno(movimiento.getSigno());
+                dto.setStockAnterior(movimiento.getStockAnterior());
+                dto.setStockNuevo(movimiento.getStockNuevo());
+                dto.setFechaMovimiento(movimiento.getFechaMovimiento());
+                dto.setReferencia(movimiento.getReferencia());
+                return dto;
+            })
+            .toList();
+}
     
     
 }
